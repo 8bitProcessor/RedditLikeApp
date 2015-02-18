@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/ProjectRedApp.iml" filepath="$PROJECT_DIR$/ProjectRedApp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/RedditLikeApp.iml" filepath="$PROJECT_DIR$/RedditLikeApp.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

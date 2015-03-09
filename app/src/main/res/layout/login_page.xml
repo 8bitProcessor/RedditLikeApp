@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tool="http://schemas.android.com/apk/lib-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tool:context=".login" android:orientation="vertical"
-    >
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <EditText
         android:layout_width="wrap_content"
@@ -12,24 +9,26 @@
         android:inputType="textPersonName"
         android:hint="Username:"
         android:ems="10"
-        android:id="@+id/editText"
+        android:id="@+id/username"
         android:layout_weight="1"
         android:layout_marginTop="170dp"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+    />
     <EditText
         android:layout_width="173dp"
         android:layout_height="wrap_content"
         android:hint="Password:"
         android:inputType="textPassword"
         android:ems="10"
-        android:id="@+id/editText2"
+        android:id="@+id/password"
         android:layout_gravity="center_vertical"
-        android:layout_below="@+id/editText"
-        android:layout_alignLeft="@+id/editText"
-        android:layout_alignStart="@+id/editText"
-        android:layout_alignRight="@+id/editText"
-        android:layout_alignEnd="@+id/editText" />
+        android:layout_below="@+id/username"
+        android:layout_alignLeft="@+id/username"
+        android:layout_alignStart="@+id/username"
+        android:layout_alignRight="@+id/username"
+        android:layout_alignEnd="@+id/username"
+    />
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -37,9 +36,9 @@
         android:layout_height="wrap_content"
         android:text="Login"
         android:id="@+id/login"
-        android:layout_below="@+id/editText2"
+        android:layout_below="@+id/password"
         android:layout_centerHorizontal="true"
-        android:onClick="onGetNameClick"/>
+    />
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -62,8 +61,9 @@
         android:layout_alignStart="@+id/create_account"
         android:layout_alignRight="@+id/create_account"
         android:layout_alignEnd="@+id/create_account"
+    />
 
-     />
+
 
 
 

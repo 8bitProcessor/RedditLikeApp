@@ -8,8 +8,6 @@ import android.os.Bundle;
  */
 public class Frontpage extends Activity{
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -30,7 +30,7 @@ public class parserJSON {
 
     public parserJSON(){
        }
-    public JSONObject createAccount(String url, String method, List<NameValuePair> uandp){
+    public JSONObject makeRequest(String url, String method, List<NameValuePair> uandp){
         try{
             if(method =="POST"){
                 DefaultHttpClient httpClient = new DefaultHttpClient();

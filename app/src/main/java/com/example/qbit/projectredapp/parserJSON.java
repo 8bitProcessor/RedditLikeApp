@@ -26,8 +26,6 @@ public class parserJSON {
     static InputStream is = null;
     static JSONObject jObj = null;
     static String json ="";
-
-
     public parserJSON(){
        }
     public JSONObject makeRequest(String url, String method, List<NameValuePair> uandp){
@@ -66,13 +64,6 @@ public class parserJSON {
         } catch (JSONException e) {
             Log.e("JSON Parser", "Error parsing data " + e.toString());
         }
-
-
-
         return jObj;
     }
-
-
-
-
 }

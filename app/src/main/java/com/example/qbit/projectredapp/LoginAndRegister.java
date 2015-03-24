@@ -27,8 +27,8 @@ import java.util.List;
 public class LoginAndRegister extends Activity {
     parserJSON jParser = new parserJSON();
     private EditText user, passwd;
-    private static final String REGISTER_URL="http://192.168.1.23/QueryFiles/register.php";
-    private static final String LOGIN_URL="http://192.168.1.23/QueryFiles/login.php";
+    private static final String REGISTER_URL="http://192.168.1.35/QueryFiles/register.php";
+    private static final String LOGIN_URL="http://192.168.1.35/QueryFiles/login.php";
     private ProgressDialog pDialog;
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_MESSAGE = "message";

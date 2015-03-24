@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <EditText
@@ -11,10 +12,12 @@
         android:ems="10"
         android:id="@+id/username"
         android:layout_weight="1"
-        android:layout_marginTop="170dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-    />
+        android:layout_above="@+id/password"
+        android:layout_alignLeft="@+id/password"
+        android:layout_alignStart="@+id/password"
+        android:layout_alignRight="@+id/password"
+        android:layout_alignEnd="@+id/password" />
+
     <EditText
         android:layout_width="173dp"
         android:layout_height="wrap_content"
@@ -23,12 +26,8 @@
         android:ems="10"
         android:id="@+id/password"
         android:layout_gravity="center_vertical"
-        android:layout_below="@+id/username"
-        android:layout_alignLeft="@+id/username"
-        android:layout_alignStart="@+id/username"
-        android:layout_alignRight="@+id/username"
-        android:layout_alignEnd="@+id/username"
-    />
+        android:layout_above="@+id/login"
+        android:layout_centerHorizontal="true" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -36,9 +35,8 @@
         android:layout_height="wrap_content"
         android:text="Login"
         android:id="@+id/login"
-        android:layout_below="@+id/password"
-        android:layout_centerHorizontal="true"
-    />
+        android:layout_above="@+id/create_account"
+        android:layout_centerHorizontal="true" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -46,9 +44,9 @@
         android:layout_height="wrap_content"
         android:text="Create Account"
         android:id="@+id/create_account"
-        android:layout_below="@+id/login"
-        android:layout_alignRight="@+id/login"
-        android:layout_alignEnd="@+id/login" />
+        android:layout_above="@+id/defaultCategory"
+        android:layout_alignLeft="@+id/login"
+        android:layout_alignStart="@+id/login" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -56,15 +54,9 @@
         android:layout_height="wrap_content"
         android:text="Go Ahead"
         android:id="@+id/defaultCategory"
-        android:layout_below="@+id/create_account"
+        android:layout_alignParentBottom="true"
         android:layout_alignLeft="@+id/create_account"
         android:layout_alignStart="@+id/create_account"
-        android:layout_alignRight="@+id/create_account"
-        android:layout_alignEnd="@+id/create_account"
-    />
-
-
-
-
+        android:layout_marginBottom="190dp" />
 
 </RelativeLayout>

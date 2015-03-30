@@ -18,7 +18,10 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,8 +30,8 @@ import java.util.Map;
 public class LoginAndRegister extends Activity {
     parserJSON jParser = new parserJSON();
     private EditText user, passwd;
-    private static final String REGISTER_URL="http://192.168.1.35/QueryFiles/register.php";
-    private static final String LOGIN_URL="http://192.168.1.35/QueryFiles/login.php";
+    private static final String REGISTER_URL="http://192.168.1.10/QueryFiles/register.php";
+    private static final String LOGIN_URL="http://192.168.1.10/QueryFiles/login.php";
     private ProgressDialog pDialog;
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_MESSAGE = "message";
@@ -71,9 +74,15 @@ public class LoginAndRegister extends Activity {
     }
     private void loginAction(String url, final String user, final String passwd){
         RequestQueue requestQueue =VolleySingleton.getInstance().getRequestQueue();
-        StringRequest request=new StringRequest(Request.Method.POST,url,new Response.Listener<String>(){
+        JsonObjectRequest request=new JsonObjectRequest(Request.Method.POST,url,new Response.Listener<JSONObject>(){
             @Override
-            public void onResponse(String response){
+            public void onResponse(JSONObject response){
+                try {
+                    if (response.getInt("success") == 1) {
+                    }
+                }catch (JSONException e){
+                    e.printStackTrace();
+                }
                   Log.d(TAG_MESSAGE, response.toString());
                 }
             },new Response.ErrorListener(){
@@ -95,14 +104,15 @@ public class LoginAndRegister extends Activity {
      }
     private void createAccountAction(String url, final String user, final String passwd){
         RequestQueue requestQueue = VolleySingleton.getInstance().getRequestQueue();
-        StringRequest request=new StringRequest(Request.Method.POST, url, new Response.Listener<String>(){
+        JsonObjectRequest request=new JsonObjectRequest(Request.Method.POST, url, new Response.Listener<JSONObject>(){
             @Override
-            public void onResponse(String response){
+            public void onResponse(JSONObject response){
                 Log.d(TAG_MESSAGE, response.toString());
             }
         },new Response.ErrorListener(){
             @Override
             public void onErrorResponse(VolleyError error) {
+
                 Toast.makeText(LoginAndRegister.this, "RESPONSE"+error, Toast.LENGTH_LONG).show();
                 Log.d("Error Volley", error.toString());
             }
@@ -117,10 +127,5 @@ public class LoginAndRegister extends Activity {
         };
         requestQueue.add(request);
     }
-
-
-
-
-
 
 }

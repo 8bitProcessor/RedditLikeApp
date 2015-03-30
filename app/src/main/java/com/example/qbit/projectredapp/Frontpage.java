@@ -23,7 +23,7 @@ import java.util.List;
 
 
 public class Frontpage extends ActionBarActivity {
-        private static String FRONTPAGE_URL="http://192.168.1.35/QueryFiles/frontpage.php";
+        private static String FRONTPAGE_URL="http://192.168.1.10/QueryFiles/frontpage.php";
         private RecyclerView recyclerView;
         private FrontpageAdaptor adaptor;
         private List<ThreadClass> threads;
@@ -79,7 +79,6 @@ public class Frontpage extends ActionBarActivity {
     private void parseJsonResponse(JSONObject response) throws JSONException {
 
         if(response==null || response.length()==0){
-
             return;
         }
         try{

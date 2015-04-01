@@ -6,4 +6,22 @@ package com.example.qbit.projectredapp;
 public class ThreadClass {
     String title;
     String username;
+
+    public ThreadClass(){
+        this.title=title;
+        this.username=username;
+    }
+
+    public String getTitle(){
+        return title;
+    }
+    public String getUsername(){
+        return username;
+    }
+    public void setTitle(String urlTitle){
+        this.title=urlTitle;
+    }
+    public void setUsername(String urlUsername){
+        this.username=urlUsername;
+    }
 }

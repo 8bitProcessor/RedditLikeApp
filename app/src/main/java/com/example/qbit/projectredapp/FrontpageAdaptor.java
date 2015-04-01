@@ -6,51 +6,46 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import java.util.ArrayList;
 
-import java.util.Collections;
-import java.util.List;
-
-/**
- * Created by qbit on 24/03/15.
- */
 public class FrontpageAdaptor extends RecyclerView.Adapter<FrontpageAdaptor.MyViewHolder> {
-    private LayoutInflater inflater;
-    private List<ThreadClass> threads= Collections.emptyList();
-    public FrontpageAdaptor(Context context, List<ThreadClass> threads){
-        inflater= LayoutInflater.from(context);
-        this.threads=threads;
+        private ArrayList<ThreadClass> threads = new ArrayList<ThreadClass>();
+        private Context context;
+        private LayoutInflater inflater;
+    public static class MyViewHolder extends RecyclerView.ViewHolder {
+        // each data item is just a string in this case
+        public TextView title;
+        public TextView username;
+        public MyViewHolder(View v) {
+            super(v);
+            title = (TextView) v.findViewById(R.id.title);
+            username = (TextView) v.findViewById(R.id.username);
+        }
     }
-
+    public FrontpageAdaptor(Context context){
+        this.context=context;
+        inflater = LayoutInflater.from(context);
+    }
+    public void setData(ArrayList<ThreadClass> netThreads){
+        this.threads = netThreads;
+        notifyItemRangeChanged(0,netThreads.size());
+    }
     @Override
-    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view=inflater.inflate(R.layout.thread_view, parent, false);
-        MyViewHolder holder=new MyViewHolder(view);
-        return holder;
+    public FrontpageAdaptor.MyViewHolder onCreateViewHolder(ViewGroup parent,int viewType) {
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.thread_view, parent, false);
+        MyViewHolder vh = new MyViewHolder(v);
+        return vh;
     }
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         ThreadClass current=threads.get(position);
-        holder.title.setText(current.title);
-        holder.username.setText(current.username);
+        // - get element from your dataset at this position
+        // - replace the contents of the view with that element
+        holder.title.setText(current.getTitle());
+        holder.username.setText(current.getUsername());
     }
     @Override
     public int getItemCount() {
-        return 0;
-    }
-
-    public FrontpageAdaptor() {
-        super();
-    }
-
-
-    class MyViewHolder extends RecyclerView.ViewHolder{
-        TextView title;
-        TextView username;
-        public MyViewHolder(View itemView) {
-            super(itemView);
-            title=(TextView) itemView.findViewById(R.id.title);
-            username=(TextView) itemView.findViewById(R.id.username);
-
-        }
+        return threads.size();
     }
 }

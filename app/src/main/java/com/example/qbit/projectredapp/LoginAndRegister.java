@@ -5,7 +5,6 @@ package com.example.qbit.projectredapp;
  */
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,24 +19,14 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
-
-
 public class LoginAndRegister extends Activity {
-    parserJSON jParser = new parserJSON();
     private EditText user, passwd;
-    private static final String REGISTER_URL="http://192.168.1.10/QueryFiles/register.php";
-    private static final String LOGIN_URL="http://192.168.1.10/QueryFiles/login.php";
-    private ProgressDialog pDialog;
-    private static final String TAG_SUCCESS = "success";
-    private static final String TAG_MESSAGE = "message";
-
-
-
+    private static final String REGISTER_URL="http://ec2-52-16-75-101.eu-west-1.compute.amazonaws.com/QueryFiles/register.php";
+    private static final String LOGIN_URL="http://ec2-52-16-75-101.eu-west-1.compute.amazonaws.com/QueryFiles/login.php";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,21 +66,17 @@ public class LoginAndRegister extends Activity {
         JsonObjectRequest request=new JsonObjectRequest(Request.Method.POST,url,new Response.Listener<JSONObject>(){
             @Override
             public void onResponse(JSONObject response){
-                try {
-                    if (response.getInt("success") == 1) {
-                    }
-                }catch (JSONException e){
-                    e.printStackTrace();
-                }
-                  Log.d(TAG_MESSAGE, response.toString());
-                }
-            },new Response.ErrorListener(){
+
+                    Log.d("Print response", response.toString());
+
+            }
+        },new Response.ErrorListener(){
             @Override
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(LoginAndRegister.this, "RESPONSE" + error, Toast.LENGTH_LONG).show();
                 Log.d("Error Volley", error.toString());
-                }
-            }){
+            }
+        }){
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
@@ -101,18 +86,17 @@ public class LoginAndRegister extends Activity {
             }
         };
         requestQueue.add(request);
-     }
+    }
     private void createAccountAction(String url, final String user, final String passwd){
         RequestQueue requestQueue = VolleySingleton.getInstance().getRequestQueue();
         JsonObjectRequest request=new JsonObjectRequest(Request.Method.POST, url, new Response.Listener<JSONObject>(){
             @Override
             public void onResponse(JSONObject response){
-                Log.d(TAG_MESSAGE, response.toString());
+                Log.d("Print response", response.toString());
             }
         },new Response.ErrorListener(){
             @Override
             public void onErrorResponse(VolleyError error) {
-
                 Toast.makeText(LoginAndRegister.this, "RESPONSE"+error, Toast.LENGTH_LONG).show();
                 Log.d("Error Volley", error.toString());
             }
@@ -127,5 +111,4 @@ public class LoginAndRegister extends Activity {
         };
         requestQueue.add(request);
     }
-
 }

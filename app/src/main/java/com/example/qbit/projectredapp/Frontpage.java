@@ -19,23 +19,27 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.List;
+import java.util.ArrayList;
 
 
 public class Frontpage extends ActionBarActivity {
-        private static String FRONTPAGE_URL="http://192.168.1.10/QueryFiles/frontpage.php";
-        private RecyclerView recyclerView;
-        private FrontpageAdaptor adaptor;
-        private List<ThreadClass> threads;
+
+        private static String FRONTPAGE_URL="http://ec2-52-16-75-101.eu-west-1.compute.amazonaws.com/QueryFiles/frontpage.php";
+
+        private RecyclerView mRecyclerView;
+        private FrontpageAdaptor mAdaptor;
+        private RecyclerView.LayoutManager mLayoutManager;
+        private ArrayList<ThreadClass> threads = new ArrayList<ThreadClass>();
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_frontpage);
         getFrontPage();
-        recyclerView = (RecyclerView) findViewById(R.id.frontpage_view);
-        adaptor = new FrontpageAdaptor(Frontpage.this,threads);
-        recyclerView.setAdapter(adaptor);
-        recyclerView.setLayoutManager(new LinearLayoutManager(Frontpage.this));
-
+        mRecyclerView = (RecyclerView) findViewById(R.id.frontpage_view);
+        mLayoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mAdaptor = new FrontpageAdaptor(this);
+        mRecyclerView.setAdapter(mAdaptor);
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -45,11 +49,7 @@ public class Frontpage extends ActionBarActivity {
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
@@ -57,15 +57,11 @@ public class Frontpage extends ActionBarActivity {
     }
     private void getFrontPage(){
         RequestQueue requestQueue =VolleySingleton.getInstance().getRequestQueue();
-
         JsonObjectRequest request=new JsonObjectRequest(Request.Method.GET,FRONTPAGE_URL,new Response.Listener<JSONObject>(){
             @Override
-            public void onResponse(JSONObject response){
-                try {
-                    parseJsonResponse(response);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+            public void onResponse(JSONObject response) {
+              threads=  parseData(response);
+              mAdaptor.setData(threads);
             }
         },new Response.ErrorListener(){
             @Override
@@ -76,22 +72,27 @@ public class Frontpage extends ActionBarActivity {
         });
         requestQueue.add(request);
     }
-    private void parseJsonResponse(JSONObject response) throws JSONException {
-
+    public ArrayList<ThreadClass> parseData(JSONObject response){
+        ArrayList<ThreadClass> parseThreads = new ArrayList<ThreadClass>();
         if(response==null || response.length()==0){
-            return;
-        }
-        try{
-        JSONArray jsonArray = response.getJSONArray("frontpage");
-        for (int i = 0; i<jsonArray.length(); i++){
-            ThreadClass threadClass = new ThreadClass();
-            JSONObject currentObject =jsonArray.getJSONObject(i);
-            threadClass.title=currentObject.getString("title");
-            threadClass.username=currentObject.getString("username");
-            threads.add(threadClass);
-        }
-        }catch (JSONException e){
-
+            return null;
+        }else{
+            try {
+                JSONArray arrayThreads =response.getJSONArray("frontpage");
+                for (int i= 0; i<arrayThreads.length(); i++){
+                    JSONObject currentThread=arrayThreads.getJSONObject(i);
+                    ThreadClass threadClass = new ThreadClass();
+                    String username=currentThread.getString("username");
+                    String title =currentThread.getString("title");
+                    threadClass.setTitle(title);
+                    threadClass.setUsername(username);
+                    parseThreads.add(threadClass);
+                }
+            }
+            catch(JSONException e){
+                e.printStackTrace();
+            }
+            return parseThreads;
         }
     }
 }

@@ -1,8 +1,6 @@
 package com.example.qbit.projectredapp;
 
-/**
- * Created by qbit on 09/03/15.
- */
+
 
 import android.app.Activity;
 import android.content.Intent;
@@ -19,14 +17,13 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 
+import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.HashMap;
-import java.util.Map;
 public class LoginAndRegister extends Activity {
     private EditText user, passwd;
-    private static final String REGISTER_URL="http://ec2-52-16-75-101.eu-west-1.compute.amazonaws.com/QueryFiles/register.php";
-    private static final String LOGIN_URL="http://ec2-52-16-75-101.eu-west-1.compute.amazonaws.com/QueryFiles/login.php";
+    private static final String REGISTER_URL="http://192.168.1.21/QueryFiles/register.php";
+    private static final String LOGIN_URL="http://192.168.1.21/QueryFiles/login.php";
+    private int success;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,7 +38,14 @@ public class LoginAndRegister extends Activity {
             public void onClick(View v){
                 String username=user.getText().toString();
                 String password=passwd.getText().toString();
-                loginAction(LOGIN_URL, username, password);
+                Intent intent = new Intent(LoginAndRegister.this, Frontpage.class);
+                try {
+                    if(loginAction(LOGIN_URL, username, password)==true){
+                        startActivity(intent);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         });
         Button createAccount = (Button) findViewById(R.id.create_account);
@@ -49,7 +53,11 @@ public class LoginAndRegister extends Activity {
             public void onClick(View v){
                 String username=user.getText().toString();
                 String password=passwd.getText().toString();
+                try {
                     createAccountAction(REGISTER_URL, username, password);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         });
         // Linking page to Frontpage with the no details as user won't have to login
@@ -61,14 +69,26 @@ public class LoginAndRegister extends Activity {
             }
         });
     }
-    private void loginAction(String url, final String user, final String passwd){
+
+
+private boolean loginAction(String url, final String user, final String passwd) throws JSONException {
         RequestQueue requestQueue =VolleySingleton.getInstance().getRequestQueue();
-        JsonObjectRequest request=new JsonObjectRequest(Request.Method.POST,url,new Response.Listener<JSONObject>(){
+        JSONObject obj = new JSONObject();
+        obj.put("username", user);
+        obj.put("password", passwd);
+
+        JsonObjectRequest request=new JsonObjectRequest(Request.Method.POST,url,obj,new Response.Listener<JSONObject>(){
             @Override
             public void onResponse(JSONObject response){
-
-                    Log.d("Print response", response.toString());
-
+                try{
+                    if (response.getInt("success")==1){
+                        Toast.makeText(LoginAndRegister.this, response.getString("message"), Toast.LENGTH_LONG).show();
+                        success = response.getInt("success");
+                    }
+                }catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                Log.d("Print response", response.toString());
             }
         },new Response.ErrorListener(){
             @Override
@@ -77,22 +97,31 @@ public class LoginAndRegister extends Activity {
                 Log.d("Error Volley", error.toString());
             }
         }){
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("username", user);
-                params.put("password", passwd);
-                return params;
-            }
+
         };
         requestQueue.add(request);
+        if (success==1){
+            return true;
+        }else{
+            return false;
+        }
+
+
+
     }
-    private void createAccountAction(String url, final String user, final String passwd){
+private void createAccountAction(String url, final String user, final String passwd) throws JSONException {
         RequestQueue requestQueue = VolleySingleton.getInstance().getRequestQueue();
-        JsonObjectRequest request=new JsonObjectRequest(Request.Method.POST, url, new Response.Listener<JSONObject>(){
+        JSONObject obj = new JSONObject();
+        obj.put("username", user);
+        obj.put("password", passwd);
+        JsonObjectRequest request=new JsonObjectRequest(Request.Method.POST, url,obj, new Response.Listener<JSONObject>(){
             @Override
             public void onResponse(JSONObject response){
-                Log.d("Print response", response.toString());
+                try {
+                    Toast.makeText(LoginAndRegister.this, response.getString("message"), Toast.LENGTH_LONG).show();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         },new Response.ErrorListener(){
             @Override
@@ -101,14 +130,8 @@ public class LoginAndRegister extends Activity {
                 Log.d("Error Volley", error.toString());
             }
         }){
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("username", user);
-                params.put("password", passwd);
-                return params;
-            }
-        };
+    };
         requestQueue.add(request);
+
     }
 }

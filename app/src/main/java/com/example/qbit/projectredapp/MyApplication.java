@@ -3,9 +3,7 @@ package com.example.qbit.projectredapp;
 import android.app.Application;
 import android.content.Context;
 
-/**
- * Created by qbit on 24/03/15.
- */
+
 public class MyApplication extends Application {
     private static MyApplication sInstance;
 

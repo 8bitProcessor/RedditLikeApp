@@ -16,10 +16,14 @@ public class FrontpageAdaptor extends RecyclerView.Adapter<FrontpageAdaptor.MyVi
         // each data item is just a string in this case
         public TextView title;
         public TextView username;
+        public TextView score;
+        public TextView category;
         public MyViewHolder(View v) {
             super(v);
             title = (TextView) v.findViewById(R.id.title);
             username = (TextView) v.findViewById(R.id.username);
+            score = (TextView) v.findViewById(R.id.score);
+            category = (TextView) v.findViewById(R.id.category);
         }
     }
     public FrontpageAdaptor(Context context){
@@ -43,6 +47,8 @@ public class FrontpageAdaptor extends RecyclerView.Adapter<FrontpageAdaptor.MyVi
         // - replace the contents of the view with that element
         holder.title.setText(current.getTitle());
         holder.username.setText(current.getUsername());
+        holder.score.setText(current.getScore());
+        holder.category.setText(current.getCategory());
     }
     @Override
     public int getItemCount() {

@@ -23,12 +23,11 @@ public class LoginAndRegister extends Activity {
     private EditText user, passwd;
     private static final String REGISTER_URL="http://192.168.1.21/QueryFiles/register.php";
     private static final String LOGIN_URL="http://192.168.1.21/QueryFiles/login.php";
-    private int success;
+    SaveSharedPreference pm = new SaveSharedPreference();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_page);
-
         //On click listener for Login
         Button login = (Button) findViewById(R.id.login);
         //On Click listener for Create account
@@ -38,14 +37,13 @@ public class LoginAndRegister extends Activity {
             public void onClick(View v){
                 String username=user.getText().toString();
                 String password=passwd.getText().toString();
-                Intent intent = new Intent(LoginAndRegister.this, Frontpage.class);
                 try {
-                    if(loginAction(LOGIN_URL, username, password)==true){
-                        startActivity(intent);
-                    }
+                    loginAction(LOGIN_URL, username, password);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+
+
             }
         });
         Button createAccount = (Button) findViewById(R.id.create_account);
@@ -69,21 +67,22 @@ public class LoginAndRegister extends Activity {
             }
         });
     }
-
-
-private boolean loginAction(String url, final String user, final String passwd) throws JSONException {
+private void loginAction(String url, final String user, final String passwd) throws JSONException {
         RequestQueue requestQueue =VolleySingleton.getInstance().getRequestQueue();
         JSONObject obj = new JSONObject();
         obj.put("username", user);
         obj.put("password", passwd);
-
         JsonObjectRequest request=new JsonObjectRequest(Request.Method.POST,url,obj,new Response.Listener<JSONObject>(){
             @Override
             public void onResponse(JSONObject response){
+                Intent intent = new Intent(LoginAndRegister.this, Frontpage.class);
                 try{
                     if (response.getInt("success")==1){
                         Toast.makeText(LoginAndRegister.this, response.getString("message"), Toast.LENGTH_LONG).show();
-                        success = response.getInt("success");
+                        startActivity(intent);
+                    }
+                    else if (response.getInt("success")==0){
+                        Toast.makeText(LoginAndRegister.this, response.getString("message"), Toast.LENGTH_LONG).show();
                     }
                 }catch (JSONException e) {
                     e.printStackTrace();
@@ -97,17 +96,8 @@ private boolean loginAction(String url, final String user, final String passwd) 
                 Log.d("Error Volley", error.toString());
             }
         }){
-
         };
         requestQueue.add(request);
-        if (success==1){
-            return true;
-        }else{
-            return false;
-        }
-
-
-
     }
 private void createAccountAction(String url, final String user, final String passwd) throws JSONException {
         RequestQueue requestQueue = VolleySingleton.getInstance().getRequestQueue();
@@ -117,8 +107,16 @@ private void createAccountAction(String url, final String user, final String pas
         JsonObjectRequest request=new JsonObjectRequest(Request.Method.POST, url,obj, new Response.Listener<JSONObject>(){
             @Override
             public void onResponse(JSONObject response){
+                Intent intent = new Intent(LoginAndRegister.this, Frontpage.class);
                 try {
-                    Toast.makeText(LoginAndRegister.this, response.getString("message"), Toast.LENGTH_LONG).show();
+                    if (response.getInt("success")==1){
+                        Toast.makeText(LoginAndRegister.this, response.getString("message"), Toast.LENGTH_LONG).show();
+                        startActivity(intent);
+
+                    }
+                    else if (response.getInt("success")==0){
+                        Toast.makeText(LoginAndRegister.this, response.getString("message"), Toast.LENGTH_LONG).show();
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -131,7 +129,7 @@ private void createAccountAction(String url, final String user, final String pas
             }
         }){
     };
-        requestQueue.add(request);
-
+    requestQueue.add(request);
     }
+
 }

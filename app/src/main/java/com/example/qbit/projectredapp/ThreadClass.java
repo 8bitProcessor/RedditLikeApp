@@ -6,12 +6,16 @@ package com.example.qbit.projectredapp;
 public class ThreadClass {
     String title;
     String username;
-
+    String score;
+    String category;
     public ThreadClass(){
         this.title=title;
         this.username=username;
+        this.score=score;
+        this.category=category;
     }
-
+    public String getScore(){return score;}
+    public String getCategory(){return category;}
     public String getTitle(){
         return title;
     }
@@ -24,4 +28,6 @@ public class ThreadClass {
     public void setUsername(String urlUsername){
         this.username=urlUsername;
     }
+    public void setScore(String Score){this.score=Score; }
+    public void setCategory(String Category){this.category=Category;}
 }

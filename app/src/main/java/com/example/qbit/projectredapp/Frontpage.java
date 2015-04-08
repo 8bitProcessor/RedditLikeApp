@@ -1,5 +1,6 @@
 package com.example.qbit.projectredapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -23,9 +24,7 @@ import java.util.ArrayList;
 
 
 public class Frontpage extends ActionBarActivity {
-
         private static String FRONTPAGE_URL="http://192.168.1.21/QueryFiles/frontpage.php";
-
         private RecyclerView mRecyclerView;
         private FrontpageAdaptor mAdaptor;
         private RecyclerView.LayoutManager mLayoutManager;
@@ -40,6 +39,7 @@ public class Frontpage extends ActionBarActivity {
         mRecyclerView.setLayoutManager(mLayoutManager);
         mAdaptor = new FrontpageAdaptor(this);
         mRecyclerView.setAdapter(mAdaptor);
+
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -50,10 +50,16 @@ public class Frontpage extends ActionBarActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
+        switch(item.getItemId()){
+            case R.id.submit:
+                Intent i = new Intent(Frontpage.this, LoginAndRegister.class);
+                startActivity(i);
+                return true;
+            case R.id.action_settings:
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-        return super.onOptionsItemSelected(item);
     }
     private void getFrontPage(){
         RequestQueue requestQueue =VolleySingleton.getInstance().getRequestQueue();
@@ -84,6 +90,10 @@ public class Frontpage extends ActionBarActivity {
                     ThreadClass threadClass = new ThreadClass();
                     String username=currentThread.getString("username");
                     String title =currentThread.getString("title");
+                    String score = currentThread.getString("score");
+                    String category = currentThread.getString("category");
+                    threadClass.setScore(score);
+                    threadClass.setCategory(category);
                     threadClass.setTitle(title);
                     threadClass.setUsername(username);
                     parseThreads.add(threadClass);
@@ -95,6 +105,13 @@ public class Frontpage extends ActionBarActivity {
             return parseThreads;
         }
     }
+
+
+
+
+
+
+
 }
 
 

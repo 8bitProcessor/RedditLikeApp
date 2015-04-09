@@ -8,11 +8,13 @@ public class ThreadClass {
     String username;
     String score;
     String category;
+    String threadID;
     public ThreadClass(){
         this.title=title;
         this.username=username;
         this.score=score;
         this.category=category;
+        this.threadID=threadID;
     }
     public String getScore(){return score;}
     public String getCategory(){return category;}
@@ -22,6 +24,7 @@ public class ThreadClass {
     public String getUsername(){
         return username;
     }
+    public String getThreadID(){return threadID;}
     public void setTitle(String urlTitle){
         this.title=urlTitle;
     }
@@ -30,4 +33,5 @@ public class ThreadClass {
     }
     public void setScore(String Score){this.score=Score; }
     public void setCategory(String Category){this.category=Category;}
+    public void setThreadID(String ThreadID){this.threadID=ThreadID;}
 }

@@ -41,7 +41,6 @@ public class Frontpage extends ActionBarActivity {
         mRecyclerView.setLayoutManager(mLayoutManager);
         mAdaptor = new FrontpageAdaptor(this);
         mRecyclerView.setAdapter(mAdaptor);
-
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -102,6 +101,8 @@ public class Frontpage extends ActionBarActivity {
                     String title =currentThread.getString("title");
                     String score = currentThread.getString("score");
                     String category = currentThread.getString("category");
+                    String threadID = currentThread.getString("threadID");
+                    threadClass.setThreadID(threadID);
                     threadClass.setScore(score);
                     threadClass.setCategory(category);
                     threadClass.setTitle(title);
@@ -115,13 +116,6 @@ public class Frontpage extends ActionBarActivity {
             return parseThreads;
         }
     }
-
-
-
-
-
-
-
 }
 
 

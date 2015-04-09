@@ -2,7 +2,7 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/card_view"
-    android:layout_width="wrap_content"
+    android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     card_view:cardBackgroundColor="#455A64"
     card_view:cardCornerRadius="5dp"
@@ -30,11 +30,11 @@
         android:text="username"
         android:textSize="12sp"
         android:textColor="@color/secondary_text"
+        android:layout_marginLeft="32dp"
+        android:layout_marginStart="32dp"
         android:layout_alignParentTop="true"
-        android:layout_alignLeft="@+id/score"
-        android:layout_alignStart="@+id/score"
-        android:layout_marginLeft="56dp"
-        android:layout_marginStart="56dp" />
+        android:layout_toRightOf="@+id/score"
+        android:layout_toEndOf="@+id/score" />
     <TextView
         android:id="@+id/category"
         android:layout_width="wrap_content"
@@ -50,27 +50,20 @@
         android:layout_alignStart="@+id/username" />
     <TextView
         android:id="@+id/title"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignWithParentIfMissing="true"
         android:gravity="center_vertical"
         android:text="Example application"
         android:textSize="16sp"
-        android:layout_margin="5dp"
         android:layout_below="@+id/username"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
         android:layout_toLeftOf="@+id/open"
-        />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
-        android:text="Open"
-        android:id="@+id/open"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_toStartOf="@+id/open" />
 
     <ImageButton
         android:layout_width="wrap_content"
@@ -80,16 +73,39 @@
         android:layout_alignLeft="@+id/title"
         android:layout_alignStart="@+id/title"
         android:src="@drawable/ic_action_name"
+        android:background="@null"
     />
 
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/imageButton"
+        android:id="@+id/down"
         android:src="@drawable/ic_action_name2"
         android:layout_alignTop="@+id/up"
         android:layout_alignLeft="@+id/username"
-        android:layout_alignStart="@+id/username" />
+        android:layout_alignStart="@+id/username"
+        android:background="@null"/>
+
+    <ImageButton
+        android:id="@+id/open"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_action_name3"
+        android:background="@null"
+        android:layout_alignBottom="@+id/title"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="5dp"/>
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/comments"
+        android:src="@drawable/ic_action_name4"
+        android:background="@null"
+        android:layout_below="@+id/open"
+        android:layout_toRightOf="@+id/title"
+        android:layout_toEndOf="@+id/title" />
 
 
 </RelativeLayout>

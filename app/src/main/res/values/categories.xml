@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="categories_list">
+        <item>books</item>
+        <item>art</item>
+        <item>food</item>
+        <item>funny</item>
+        <item>videos</item>
+        <item>politics</item>
+        <item>gaming</item>
+        <item>tv</item>
+        <item>movies</item>
+        <item>pictures</item>
+        <item>programming</item>
+        <item>linux</item>
+    </string-array>
+
+
+
+</resources>

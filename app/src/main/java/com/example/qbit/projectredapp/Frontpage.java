@@ -1,6 +1,7 @@
 package com.example.qbit.projectredapp;
 
-import android.content.Intent;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -52,8 +53,11 @@ public class Frontpage extends ActionBarActivity {
         int id = item.getItemId();
         switch(item.getItemId()){
             case R.id.submit:
-                Intent i = new Intent(Frontpage.this, LoginAndRegister.class);
-                startActivity(i);
+                SubmitThread submitThread = new SubmitThread();
+                FragmentManager manager = getFragmentManager();
+                FragmentTransaction transaction = manager.beginTransaction();
+                transaction.add(R.id.frontpage_main_layout,submitThread, "submitThread");
+                transaction.commit();
                 return true;
             case R.id.action_settings:
                 return true;

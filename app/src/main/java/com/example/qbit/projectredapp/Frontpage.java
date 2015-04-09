@@ -2,6 +2,7 @@ package com.example.qbit.projectredapp;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -30,7 +31,7 @@ public class Frontpage extends ActionBarActivity {
         private FrontpageAdaptor mAdaptor;
         private RecyclerView.LayoutManager mLayoutManager;
         private ArrayList<ThreadClass> threads = new ArrayList<ThreadClass>();
-
+        SaveSharedPreference pm = new SaveSharedPreference();
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_frontpage);
@@ -61,6 +62,11 @@ public class Frontpage extends ActionBarActivity {
                 return true;
             case R.id.action_settings:
                 return true;
+            case R.id.logout:
+                Intent i = new Intent(getApplicationContext(), LoginAndRegister.class);
+                pm.logout(getApplicationContext());
+                Toast.makeText(getApplicationContext(), "Logging you out!", Toast.LENGTH_LONG).show();
+                startActivity(i);
             default:
                 return super.onOptionsItemSelected(item);
         }

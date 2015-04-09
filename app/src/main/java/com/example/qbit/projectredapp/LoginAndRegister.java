@@ -27,10 +27,20 @@ public class LoginAndRegister extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (pm.getUsername(LoginAndRegister.this).length()==0){
+
+        }
+        else{
+            Intent intent = new Intent(getApplicationContext(), Frontpage.class);
+            startActivity(intent);
+            Toast.makeText(getApplicationContext(), "Logging you back in !", Toast.LENGTH_LONG);
+        }
+
+
+
+
         setContentView(R.layout.login_page);
-        //On click listener for Login
         Button login = (Button) findViewById(R.id.login);
-        //On Click listener for Create account
         user = (EditText)findViewById(R.id.username);
         passwd = (EditText)findViewById(R.id.password);
         login.setOnClickListener(new View.OnClickListener(){
@@ -69,7 +79,7 @@ public class LoginAndRegister extends Activity {
     }
 private void loginAction(String url, final String user, final String passwd) throws JSONException {
         RequestQueue requestQueue =VolleySingleton.getInstance().getRequestQueue();
-        JSONObject obj = new JSONObject();
+        final JSONObject obj = new JSONObject();
         obj.put("username", user);
         obj.put("password", passwd);
         JsonObjectRequest request=new JsonObjectRequest(Request.Method.POST,url,obj,new Response.Listener<JSONObject>(){
@@ -79,10 +89,11 @@ private void loginAction(String url, final String user, final String passwd) thr
                 try{
                     if (response.getInt("success")==1){
                         Toast.makeText(LoginAndRegister.this, response.getString("message"), Toast.LENGTH_LONG).show();
+                        pm.setDetails(LoginAndRegister.this, obj.getString("username"), obj.getString("password"));
                         startActivity(intent);
                     }
                     else if (response.getInt("success")==0){
-                        Toast.makeText(LoginAndRegister.this, response.getString("message"), Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), response.getString("message"), Toast.LENGTH_LONG).show();
                     }
                 }catch (JSONException e) {
                     e.printStackTrace();
@@ -101,7 +112,7 @@ private void loginAction(String url, final String user, final String passwd) thr
     }
 private void createAccountAction(String url, final String user, final String passwd) throws JSONException {
         RequestQueue requestQueue = VolleySingleton.getInstance().getRequestQueue();
-        JSONObject obj = new JSONObject();
+        final JSONObject obj = new JSONObject();
         obj.put("username", user);
         obj.put("password", passwd);
         JsonObjectRequest request=new JsonObjectRequest(Request.Method.POST, url,obj, new Response.Listener<JSONObject>(){
@@ -111,6 +122,7 @@ private void createAccountAction(String url, final String user, final String pas
                 try {
                     if (response.getInt("success")==1){
                         Toast.makeText(LoginAndRegister.this, response.getString("message"), Toast.LENGTH_LONG).show();
+                        pm.setDetails(getApplicationContext(), obj.getString("username"), obj.getString("password"));
                         startActivity(intent);
 
                     }

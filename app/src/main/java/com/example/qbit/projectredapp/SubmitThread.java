@@ -26,7 +26,7 @@ public class SubmitThread extends Fragment {
     private Spinner category;
     private Spinner link_option;
     private Button submit,back;
-    private static final String post_url= "http://192.168.1.21/QueryFiles/createThread.php";
+    private static final String post_url= "http://ec2-52-16-75-101.eu-west-1.compute.amazonaws.com/QueryFiles/createThread.php";
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

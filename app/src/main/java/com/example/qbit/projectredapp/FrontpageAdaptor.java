@@ -24,7 +24,7 @@ public class FrontpageAdaptor extends RecyclerView.Adapter<FrontpageAdaptor.MyVi
         private Context context;
         private LayoutInflater inflater;
         SaveSharedPreference pm =new SaveSharedPreference();
-        private static final String voteURL =  "http://192.168.1.21/QueryFiles/vote.php";
+        private static final String voteURL =  "http://ec2-52-16-75-101.eu-west-1.compute.amazonaws.com/QueryFiles/vote.php";
     public static class MyViewHolder extends RecyclerView.ViewHolder  {
         // each data item is just a string in this case
         public TextView title;

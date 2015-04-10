@@ -55,20 +55,32 @@
             android:layout_below="@+id/username_comments"
             android:layout_alignLeft="@+id/comments_score"
             android:layout_alignStart="@+id/comments_score"
-            android:layout_toLeftOf="@+id/commment_com_layout"
-            android:layout_toStartOf="@+id/commment_com_layout" />
-        <Button
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Comment"
-            android:id="@+id/commment_com_layout"
-            android:layout_alignTop="@+id/title_comments"
-            android:layout_alignRight="@+id/comments_category"
-            android:layout_alignEnd="@+id/comments_category" />
+            android:layout_alignRight="@+id/comments_category" />
 
     </RelativeLayout>
 
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Comment"
+        android:id="@+id/teview_comment" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine"
+        android:ems="10"
+        android:id="@+id/comment_details" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Submit"
+        android:id="@+id/submit_comment_call"
+        android:layout_gravity="center_horizontal" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/comments_rec_view"

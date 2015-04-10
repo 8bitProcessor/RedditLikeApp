@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,9 +33,11 @@ public class Comments extends ActionBarActivity{
     SaveSharedPreference pm = new SaveSharedPreference();
     private TextView comments_score, comments_category, username_comments, title_comments;
     private RecyclerView commentsRecyclerView;
-    private Button commentButton;
+    private Button submit_comment_call;
+    private EditText comment_details;
     private CommentsAdaptor commentAdaptor;
-    private static String commentsURL = "http://192.168.1.21/QueryFiles/comments.php";
+    private static String submit_comment_url = "http://ec2-52-16-75-101.eu-west-1.compute.amazonaws.com/QueryFiles/submit_comment.php";
+    private static String commentsURL = "http://ec2-52-16-75-101.eu-west-1.compute.amazonaws.com/QueryFiles/comments.php";
     private RecyclerView.LayoutManager commentsLayoutMgr;
     private ArrayList<CommentClass> comments = new ArrayList<CommentClass>();
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,18 +47,13 @@ public class Comments extends ActionBarActivity{
         comments_category = (TextView) findViewById(R.id.comments_category);
         username_comments = (TextView) findViewById(R.id.username_comments);
         title_comments = (TextView) findViewById(R.id.title_comments);
-        commentButton = (Button) findViewById(R.id.commment_com_layout);
-        commentButton.setOnClickListener(new View.OnClickListener() {
-        @Override
-         public void onClick(View v) {
-            SubmitComment submitComment= new SubmitComment();
-            FragmentManager commentOpen = getFragmentManager();
-            FragmentTransaction transaction = commentOpen.beginTransaction();
-            transaction.add(R.id.comments_layout, submitComment,"submitComment");
-            transaction.commit();
-            }
-        });
-        Bundle extras= getIntent().getExtras();
+
+        comment_details = (EditText) findViewById(R.id.comment_details);
+        submit_comment_call = (Button) findViewById(R.id.submit_comment_call);
+
+
+
+        final Bundle extras= getIntent().getExtras();
         comments_score.setText(extras.getString("score"));
         comments_category.setText(extras.getString("category"));
         username_comments.setText(extras.getString("username"));
@@ -66,6 +64,18 @@ public class Comments extends ActionBarActivity{
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        submit_comment_call.setOnClickListener(new View.OnClickListener() {
+            final String threadID = extras.getString("threadID");
+            @Override
+            public void onClick(View v) {
+                String comment_text = comment_details.getText().toString();
+                try {
+                    postComment(comment_text, threadID);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
         commentsRecyclerView = (RecyclerView) findViewById(R.id.comments_rec_view);
         commentsLayoutMgr = new LinearLayoutManager(this);
         commentsRecyclerView.setLayoutManager(commentsLayoutMgr);
@@ -100,6 +110,36 @@ public class Comments extends ActionBarActivity{
                 return super.onOptionsItemSelected(item);
         }
     }
+    public void postComment(String comment_text, final String threadID) throws JSONException {
+        JSONObject comment_details = new JSONObject();
+        comment_details.put("commentText", comment_text);
+        comment_details.put("threadID", threadID);
+        comment_details.put("username", pm.getUsername(getApplicationContext()));
+        comment_details.put("password", pm.getPassword(getApplicationContext()));
+        RequestQueue requestQueue =VolleySingleton.getInstance().getRequestQueue();
+        JsonObjectRequest request=new JsonObjectRequest(Request.Method.POST,submit_comment_url,comment_details,new Response.Listener<JSONObject>(){
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    if(response.getInt("success")==1) {
+                        Toast.makeText(Comments.this, "Response: " + response.getString("message"), Toast.LENGTH_LONG).show();
+                        getComments(threadID);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        },new Response.ErrorListener(){
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(Comments.this, "RESPONSE" + error, Toast.LENGTH_LONG).show();
+                Log.d("Error Volley", error.toString());
+            }
+        });
+        requestQueue.add(request);
+    }
+
+
 
     public void getComments(String threadID) throws JSONException {
         JSONObject ID = new JSONObject();

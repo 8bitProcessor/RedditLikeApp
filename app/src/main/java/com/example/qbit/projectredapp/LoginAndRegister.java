@@ -76,6 +76,11 @@ public class LoginAndRegister extends Activity {
                 startActivityForResult(intent, 0);
             }
         });
+
+
+
+
+
     }
 private void loginAction(String url, final String user, final String passwd) throws JSONException {
         RequestQueue requestQueue =VolleySingleton.getInstance().getRequestQueue();

@@ -12,13 +12,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
-
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -32,7 +30,6 @@ public class SubmitThread extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -41,7 +38,6 @@ public class SubmitThread extends Fragment {
         category = (Spinner) submit_thread.findViewById(R.id.category);
         link_option = (Spinner) submit_thread.findViewById(R.id.link_options);
         topic_link = (EditText) submit_thread.findViewById(R.id.topic_link);
-
         submit = (Button) submit_thread.findViewById(R.id.submit);
         submit.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
@@ -49,15 +45,12 @@ public class SubmitThread extends Fragment {
                 String post_category=category.getSelectedItem().toString();
                 String post_option=link_option.getSelectedItem().toString();
                 String post_info =topic_link.getText().toString();
-
                 try{
                     postThread(post_url, post_title,post_category,post_option,post_info);
                 }catch (JSONException e){
                     e.printStackTrace();
                 }
-
-
-            }
+           }
         });
 
         back = (Button) submit_thread.findViewById(R.id.back);
@@ -67,13 +60,6 @@ public class SubmitThread extends Fragment {
                 startActivity(i);
             }
         });
-
-
-
-
-
-
-
 
         return submit_thread;
     }
@@ -97,7 +83,6 @@ public class SubmitThread extends Fragment {
     public void onDetach() {
         super.onDetach();
     }
-
     public void postThread(String url, String post_title, String post_category, String post_option,String post_info) throws JSONException {
         RequestQueue requestQueue = VolleySingleton.getInstance().getRequestQueue();
         final JSONObject postDetails = new JSONObject();

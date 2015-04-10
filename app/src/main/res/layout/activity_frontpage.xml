@@ -4,9 +4,16 @@
     android:layout_height="match_parent"
     android:id="@+id/frontpage_main_layout"
     tools:context="${relativePackage}.${activityClass}" >
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/frontpage_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="vertical" />
+
+
+
+
+
+
 </RelativeLayout>

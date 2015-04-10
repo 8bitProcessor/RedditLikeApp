@@ -1,6 +1,7 @@
 package com.example.qbit.projectredapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -9,16 +10,13 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 
 public class FrontpageAdaptor extends RecyclerView.Adapter<FrontpageAdaptor.MyViewHolder> {
@@ -48,9 +46,7 @@ public class FrontpageAdaptor extends RecyclerView.Adapter<FrontpageAdaptor.MyVi
             downvote =(ImageButton) v.findViewById(R.id.down);
             open = (ImageButton) v.findViewById(R.id.open);
             comments =(ImageButton) v.findViewById(R.id.comments);
-
         }
-
     }
 
     public FrontpageAdaptor(Context context){
@@ -98,6 +94,18 @@ public class FrontpageAdaptor extends RecyclerView.Adapter<FrontpageAdaptor.MyVi
                    e.printStackTrace();
                }
            }
+        });
+        holder.comments.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(context, Comments.class);
+                i.putExtra("threadID", current.getThreadID());
+                i.putExtra("title", current.getTitle());
+                i.putExtra("username", current.getUsername());
+                i.putExtra("category", current.getCategory());
+                i.putExtra("score", current.getScore());
+                context.startActivity(i);
+            }
         });
    }
     @Override

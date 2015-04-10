@@ -31,7 +31,9 @@ public class Frontpage extends ActionBarActivity {
         private FrontpageAdaptor mAdaptor;
         private RecyclerView.LayoutManager mLayoutManager;
         private ArrayList<ThreadClass> threads = new ArrayList<ThreadClass>();
-        SaveSharedPreference pm = new SaveSharedPreference();
+
+
+    SaveSharedPreference pm = new SaveSharedPreference();
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_frontpage);

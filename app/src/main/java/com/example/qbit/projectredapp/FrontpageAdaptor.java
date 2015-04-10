@@ -72,17 +72,26 @@ public class FrontpageAdaptor extends RecyclerView.Adapter<FrontpageAdaptor.MyVi
         holder.username.setText(current.getUsername());
         holder.score.setText(current.getScore());
         holder.category.setText(current.getCategory());
-
         holder.open.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, OpenLink.class);
-                intent.putExtra("url",current.getLink());
-                context.startActivity(intent);
+                Log.d("Current Type : ", current.getType());
+                if (current.getType().equals("1")){
+                    Intent link = new Intent(context, OpenLink.class);
+                    link.putExtra("url",current.getLink());
+                    context.startActivity(link);
+                }
+                else if(current.getType().equals("0")){
+                    Intent comments = new Intent(context, Comments.class);
+                    comments.putExtra("threadID", current.getThreadID());
+                    comments.putExtra("title", current.getTitle());
+                    comments.putExtra("username", current.getUsername());
+                    comments.putExtra("category", current.getCategory());
+                    comments.putExtra("score", current.getScore());
+                    context.startActivity(comments);
+                }
             }
         });
-
-
         holder.upvote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -122,40 +131,32 @@ public class FrontpageAdaptor extends RecyclerView.Adapter<FrontpageAdaptor.MyVi
     public int getItemCount() {
         return threads.size();
     }
-
     public void voteThread(String threadID, int voteType) throws JSONException {
         JSONObject voteObj = new JSONObject();
         //int tID = Integer.parseInt(threadID);
-        voteObj.put("username",pm.getUsername(context));
+        voteObj.put("username", pm.getUsername(context));
         voteObj.put("password", pm.getPassword(context));
         voteObj.put("threadID", threadID);
         voteObj.put("voteType", voteType);
         RequestQueue requestQueue = VolleySingleton.getInstance().getRequestQueue();
-        JsonObjectRequest SendScore = new JsonObjectRequest(Request.Method.POST,voteURL,voteObj, new Response.Listener<JSONObject>(){
+        JsonObjectRequest SendScore = new JsonObjectRequest(Request.Method.POST, voteURL, voteObj, new Response.Listener<JSONObject>() {
             @Override
-            public void onResponse(JSONObject response){
+            public void onResponse(JSONObject response) {
                 try {
 
-                    Toast.makeText(context,"Response : " +response.getString("message"), Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, "Response : " + response.getString("message"), Toast.LENGTH_LONG).show();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-            }},new Response.ErrorListener(){
+            }
+        }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(context, "RESPONSE" + error, Toast.LENGTH_LONG).show();
                 Log.d("Error Volley", error.toString());
             }
-        }){
+        }) {
         };
         requestQueue.add(SendScore);
-
-
     }
-
-
-
-
-
-
 }

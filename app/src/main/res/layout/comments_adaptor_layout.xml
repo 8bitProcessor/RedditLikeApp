@@ -3,34 +3,36 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/card_view"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_height="wrap_content"
     card_view:cardBackgroundColor="#455A64"
     android:layout_margin="4dp">
 
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="fill_parent"
+        android:layout_height="wrap_content"
          >
        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+           android:layout_marginLeft="5dp"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="Score"
+            android:textColor="@color/primary_text"
             android:id="@+id/score_card"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" />
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="Username"
+            android:textColor="@color/primary_text"
             android:id="@+id/username_card"
             android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true" />
-
+            android:layout_toRightOf="@+id/downvote_comment"
+            android:layout_toEndOf="@+id/downvote_comment" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -38,10 +40,26 @@
             android:text="Comment"
             android:id="@+id/comment_card"
             android:layout_below="@+id/score_card"
+            android:layout_alignLeft="@+id/score_card"
+            android:layout_alignStart="@+id/score_card" />
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_action_name"
+            android:id="@+id/upvote_comment"
+            android:background="@null"
+            android:layout_alignTop="@+id/downvote_comment"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/downvote_comment"
+            android:background="@null"
+            android:src="@drawable/ic_action_name2"
+            android:layout_below="@+id/comment_card"
+            android:layout_toRightOf="@+id/upvote_comment"
+            android:layout_toEndOf="@+id/upvote_comment" />
     </RelativeLayout>
-
-
-
 </android.support.v7.widget.CardView>

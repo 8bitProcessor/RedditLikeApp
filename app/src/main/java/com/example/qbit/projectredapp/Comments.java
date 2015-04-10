@@ -40,7 +40,6 @@ public class Comments extends ActionBarActivity{
     private static String submit_comment_url = "http://192.168.1.21/QueryFiles/submit_comment.php";
     private static String commentsURL = "http://192.168.1.21/QueryFiles/comments.php";
     private RecyclerView.LayoutManager commentsLayoutMgr;
-
     private ArrayList<CommentClass> comments = new ArrayList<CommentClass>();
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,12 +66,17 @@ public class Comments extends ActionBarActivity{
             final String threadID = extras.getString("threadID");
             @Override
             public void onClick(View v) {
+                if (pm.getUsername(getApplicationContext())==""){
+                    Toast.makeText(getApplicationContext(), "Please login to comment.", Toast.LENGTH_LONG).show();
+                }
+                else{
                 String comment_text = comment_details.getText().toString();
                 try {
                     postComment(comment_text, threadID);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+            }
             }
         });
         commentsRecyclerView = (RecyclerView) findViewById(R.id.comments_rec_view);

@@ -29,7 +29,7 @@
         android:singleLine="true"
         android:text="username"
         android:textSize="12sp"
-        android:textColor="@color/secondary_text"
+        android:textColor="@color/primary_text"
         android:layout_marginLeft="32dp"
         android:layout_marginStart="32dp"
         android:layout_alignParentTop="true"
@@ -37,17 +37,15 @@
         android:layout_toEndOf="@+id/score" />
     <TextView
         android:id="@+id/category"
+        android:textColor="@color/primary_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ellipsize="marquee"
         android:singleLine="true"
         android:text="Category"
         android:textSize="12sp"
-        android:layout_marginLeft="91dp"
-        android:layout_marginStart="91dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignLeft="@+id/username"
-        android:layout_alignStart="@+id/username" />
+        android:layout_alignTop="@+id/open"
+        android:layout_centerHorizontal="true" />
     <TextView
         android:id="@+id/title"
         android:layout_width="fill_parent"
@@ -90,22 +88,21 @@
         android:id="@+id/open"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_action_name3"
+        android:src="@drawable/open"
         android:background="@null"
-        android:layout_alignBottom="@+id/title"
+        android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_margin="5dp"/>
+        android:layout_alignParentEnd="true" />
 
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/comments"
-        android:src="@drawable/ic_action_name4"
+        android:src="@drawable/comments"
         android:background="@null"
-        android:layout_below="@+id/open"
-        android:layout_toRightOf="@+id/title"
-        android:layout_toEndOf="@+id/title" />
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
 
 </RelativeLayout>

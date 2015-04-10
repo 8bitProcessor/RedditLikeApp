@@ -105,12 +105,14 @@ public class Frontpage extends ActionBarActivity {
                     String category = currentThread.getString("category");
                     String threadID = currentThread.getString("threadID");
                     String url = currentThread.getString("link");
+                    String type =currentThread.getString("type");
                     threadClass.setThreadID(threadID);
                     threadClass.setScore(score);
                     threadClass.setCategory(category);
                     threadClass.setTitle(title);
                     threadClass.setUsername(username);
                     threadClass.setLink(url);
+                    threadClass.setType(type);
                     parseThreads.add(threadClass);
                 }
             }

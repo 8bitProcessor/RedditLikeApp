@@ -24,7 +24,7 @@ public class FrontpageAdaptor extends RecyclerView.Adapter<FrontpageAdaptor.MyVi
         private Context context;
         private LayoutInflater inflater;
         SaveSharedPreference pm =new SaveSharedPreference();
-        private static final String voteURL =  "http://ec2-52-16-75-101.eu-west-1.compute.amazonaws.com/QueryFiles/vote.php";
+        private static final String voteURL =  "http://192.168.1.21/QueryFiles/vote.php";
     public static class MyViewHolder extends RecyclerView.ViewHolder  {
         // each data item is just a string in this case
         public TextView title;
@@ -72,6 +72,16 @@ public class FrontpageAdaptor extends RecyclerView.Adapter<FrontpageAdaptor.MyVi
         holder.username.setText(current.getUsername());
         holder.score.setText(current.getScore());
         holder.category.setText(current.getCategory());
+
+        holder.open.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, OpenLink.class);
+                intent.putExtra("url",current.getLink());
+                context.startActivity(intent);
+            }
+        });
+
 
         holder.upvote.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -125,6 +135,7 @@ public class FrontpageAdaptor extends RecyclerView.Adapter<FrontpageAdaptor.MyVi
             @Override
             public void onResponse(JSONObject response){
                 try {
+
                     Toast.makeText(context,"Response : " +response.getString("message"), Toast.LENGTH_LONG).show();
                 } catch (JSONException e) {
                     e.printStackTrace();

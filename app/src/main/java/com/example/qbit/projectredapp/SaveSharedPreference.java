@@ -4,9 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
-/**
- * Created by qbit on 08/04/15.
- */
+
 public class SaveSharedPreference {
     static final String username = "username";
     static final String password = "password";

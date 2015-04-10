@@ -12,10 +12,9 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name=".LoginAndRegister"
-            android:label="VoteApp" >
+            android:label="postItvoteIt" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -23,9 +22,15 @@
             android:name=".Frontpage"
             android:label="@string/title_activity_frontpage" >
         </activity>
-        <activity android:name=".Comments" android:label="Comments">
+        <activity
+            android:name=".Comments"
+            android:label="Comments">
         </activity>
+        <activity
+            android:name=".OpenLink"
+            android:label="OpenLink"
+        >
 
+            </activity>
     </application>
-
 </manifest>

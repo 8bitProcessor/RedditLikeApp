@@ -3,9 +3,6 @@ package com.example.qbit.projectredapp;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 
-/**
- * Created by qbit on 24/03/15.
- */
 public class VolleySingleton {
     private static VolleySingleton sInstance=null;
     private RequestQueue mRequestQueue;

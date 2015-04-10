@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -36,23 +37,21 @@ public class Comments extends ActionBarActivity{
     private Button submit_comment_call;
     private EditText comment_details;
     private CommentsAdaptor commentAdaptor;
-    private static String submit_comment_url = "http://ec2-52-16-75-101.eu-west-1.compute.amazonaws.com/QueryFiles/submit_comment.php";
-    private static String commentsURL = "http://ec2-52-16-75-101.eu-west-1.compute.amazonaws.com/QueryFiles/comments.php";
+    private static String submit_comment_url = "http://192.168.1.21/QueryFiles/submit_comment.php";
+    private static String commentsURL = "http://192.168.1.21/QueryFiles/comments.php";
     private RecyclerView.LayoutManager commentsLayoutMgr;
+
     private ArrayList<CommentClass> comments = new ArrayList<CommentClass>();
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         setContentView(R.layout.comments_layout);
         comments_score = (TextView) findViewById(R.id.comments_score);
         comments_category = (TextView) findViewById(R.id.comments_category);
         username_comments = (TextView) findViewById(R.id.username_comments);
         title_comments = (TextView) findViewById(R.id.title_comments);
-
         comment_details = (EditText) findViewById(R.id.comment_details);
         submit_comment_call = (Button) findViewById(R.id.submit_comment_call);
-
-
-
         final Bundle extras= getIntent().getExtras();
         comments_score.setText(extras.getString("score"));
         comments_category.setText(extras.getString("category"));

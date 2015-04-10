@@ -21,8 +21,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 public class LoginAndRegister extends Activity {
     private EditText user, passwd;
-    private static final String REGISTER_URL="http://ec2-52-16-75-101.eu-west-1.compute.amazonaws.com/QueryFiles/register.php";
-    private static final String LOGIN_URL="http://ec2-52-16-75-101.eu-west-1.compute.amazonaws.com/QueryFiles/login.php";
+    private static final String REGISTER_URL="http://192.168.1.21/QueryFiles/register.php";
+    private static final String LOGIN_URL="http://192.168.1.21/QueryFiles/login.php";
     SaveSharedPreference pm = new SaveSharedPreference();
     @Override
     protected void onCreate(Bundle savedInstanceState) {

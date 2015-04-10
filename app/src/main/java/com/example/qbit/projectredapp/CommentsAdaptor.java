@@ -9,9 +9,6 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-/**
- * Created by qbit on 10/04/15.
- */
 public class CommentsAdaptor extends RecyclerView.Adapter<CommentsAdaptor.CommentsViewHolder>{
     private LayoutInflater inflater;
     private Context context;

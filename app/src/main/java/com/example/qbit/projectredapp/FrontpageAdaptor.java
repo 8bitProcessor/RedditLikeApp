@@ -123,6 +123,7 @@ public class FrontpageAdaptor extends RecyclerView.Adapter<FrontpageAdaptor.MyVi
                 i.putExtra("username", current.getUsername());
                 i.putExtra("category", current.getCategory());
                 i.putExtra("score", current.getScore());
+                i.putExtra("infoOrL", current.getLink());
                 context.startActivity(i);
             }
         });

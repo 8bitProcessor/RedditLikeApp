@@ -7,89 +7,118 @@
     android:layout_height="match_parent"
     android:id="@+id/comments_layout"
     tools:context="${relativePackage}.${activityClass}"
-    android:weightSum="1">
+    >
 
-    <RelativeLayout
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+<RelativeLayout
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    >
     <TextView
-        android:layout_margin="15dp"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Title - Description"
+        android:id="@+id/title_comments"
+        android:layout_margin="5dp"
+    />
+    <LinearLayout
+        android:layout_below="@+id/title_comments"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        >
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Score"
+        android:layout_marginLeft="5dp"
         android:id="@+id/comments_score"
-        android:layout_gravity="center_horizontal"
-        android:layout_weight="0.03" />
+        android:layout_alignTop="@+id/username_comments"
+        />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Username"
+        android:id="@+id/username_comments"
+    />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Category"
         android:id="@+id/comments_category"
-        android:layout_gravity="right"
-        android:layout_weight="0.03"
-        android:layout_marginRight="25dp"
-        android:layout_marginEnd="29dp"
-        android:layout_alignTop="@+id/username_comments"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-        <TextView
-            android:layout_margin="15dp"
-            android:layout_marginRight="5dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="Username"
-            android:id="@+id/username_comments"
-            android:layout_weight="0.02"
-            android:layout_gravity="center_horizontal"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Title - Description"
-            android:id="@+id/title_comments"
-            android:layout_below="@+id/username_comments"
-            android:layout_alignLeft="@+id/comments_score"
-            android:layout_alignStart="@+id/comments_score"
-            android:layout_alignRight="@+id/comments_category" />
+        android:layout_below="@+id/comments_score"
+    />
+    </LinearLayout>
+</RelativeLayout>
 
+<RelativeLayout
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="12dp">
+    <TextView
+        android:id="@+id/topic_link_comments"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Question/Topic/Link"
+        />
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text=" Link or Question"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_below="@+id/topic_link_comments"
+        android:id="@+id/infoOrL"
+        android:textIsSelectable="true"
+        />
     </RelativeLayout>
 
 
+<RelativeLayout
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Comment"
-        android:id="@+id/teview_comment" />
-
+        android:id="@+id/teview_comment"
+        android:layout_alignParentTop="true"
+        android:layout_alignLeft="@+id/comment_details"
+        android:layout_alignStart="@+id/comment_details" />
     <EditText
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:inputType="textMultiLine"
         android:ems="10"
-        android:id="@+id/comment_details" />
-
+        android:id="@+id/comment_details"
+        android:layout_margin="5dp"
+        android:layout_below="@+id/teview_comment"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
     <Button
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Submit"
         android:id="@+id/submit_comment_call"
-        android:layout_gravity="center_horizontal" />
+        android:layout_below="@+id/comment_details"
+        android:layout_centerHorizontal="true" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/comments_rec_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollbars="vertical" >
-    </android.support.v7.widget.RecyclerView>
+</RelativeLayout>
 
 
 
 
+<android.support.v7.widget.RecyclerView
+    android:id="@+id/comments_rec_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbars="vertical" >
+</android.support.v7.widget.RecyclerView>
 </LinearLayout>

@@ -32,7 +32,7 @@ import java.util.ArrayList;
 
 public class Comments extends ActionBarActivity{
     SaveSharedPreference pm = new SaveSharedPreference();
-    private TextView comments_score, comments_category, username_comments, title_comments;
+    private TextView comments_score, comments_category, username_comments, title_comments, infoOrL;
     private RecyclerView commentsRecyclerView;
     private Button submit_comment_call;
     private EditText comment_details;
@@ -51,11 +51,13 @@ public class Comments extends ActionBarActivity{
         title_comments = (TextView) findViewById(R.id.title_comments);
         comment_details = (EditText) findViewById(R.id.comment_details);
         submit_comment_call = (Button) findViewById(R.id.submit_comment_call);
+        infoOrL = (TextView) findViewById(R.id.infoOrL);
         final Bundle extras= getIntent().getExtras();
         comments_score.setText(extras.getString("score"));
         comments_category.setText(extras.getString("category"));
         username_comments.setText(extras.getString("username"));
         title_comments.setText(extras.getString("title"));
+        infoOrL.setText(extras.getString("infoOrL"));
         String threadID  = extras.getString("threadID");
         try {
             getComments(threadID);

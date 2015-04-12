@@ -26,7 +26,7 @@ import java.util.ArrayList;
 
 
 public class Frontpage extends ActionBarActivity {
-        private static String FRONTPAGE_URL="http://192.168.1.21/QueryFiles/frontpage.php";
+        private static String FRONTPAGE_URL="http://ec2-52-16-75-101.eu-west-1.compute.amazonaws.com/QueryFiles/frontpage.php";
         private RecyclerView mRecyclerView;
         private FrontpageAdaptor mAdaptor;
         private RecyclerView.LayoutManager mLayoutManager;

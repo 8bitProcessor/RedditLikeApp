@@ -22,7 +22,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class CommentsAdaptor extends RecyclerView.Adapter<CommentsAdaptor.CommentsViewHolder>{
-    private static String voteURL="http://192.168.1.21/QueryFiles/vote_comment.php";
+    private static String voteURL="http://ec2-52-16-75-101.eu-west-1.compute.amazonaws.com/QueryFiles/vote_comment.php";
     private LayoutInflater inflater;
     private Context context;
     private ArrayList<CommentClass> comments = new ArrayList<CommentClass>();

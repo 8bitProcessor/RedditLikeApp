@@ -37,8 +37,8 @@ public class Comments extends ActionBarActivity{
     private Button submit_comment_call;
     private EditText comment_details;
     private CommentsAdaptor commentAdaptor;
-    private static String submit_comment_url = "http://192.168.1.21/QueryFiles/submit_comment.php";
-    private static String commentsURL = "http://192.168.1.21/QueryFiles/comments.php";
+    private static String submit_comment_url = "http://ec2-52-16-75-101.eu-west-1.compute.amazonaws.com/QueryFiles/submit_comment.php";
+    private static String commentsURL = "http://ec2-52-16-75-101.eu-west-1.compute.amazonaws.com/QueryFiles/comments.php";
     private RecyclerView.LayoutManager commentsLayoutMgr;
     private ArrayList<CommentClass> comments = new ArrayList<CommentClass>();
     protected void onCreate(Bundle savedInstanceState) {

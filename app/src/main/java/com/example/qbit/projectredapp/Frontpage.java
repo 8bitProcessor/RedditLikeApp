@@ -4,6 +4,7 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -31,7 +32,7 @@ public class Frontpage extends ActionBarActivity {
         private FrontpageAdaptor mAdaptor;
         private RecyclerView.LayoutManager mLayoutManager;
         private ArrayList<ThreadClass> threads = new ArrayList<ThreadClass>();
-
+        private SwipeRefreshLayout swipeRefreshLayout;
 
     SaveSharedPreference pm = new SaveSharedPreference();
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +44,16 @@ public class Frontpage extends ActionBarActivity {
         mRecyclerView.setLayoutManager(mLayoutManager);
         mAdaptor = new FrontpageAdaptor(this);
         mRecyclerView.setAdapter(mAdaptor);
+        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeToRefresh);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener(){
+            @Override
+            public void onRefresh() {
+                swipeRefreshLayout.setRefreshing(true);
+                getFrontPage();
+            }
+        });
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -79,12 +89,14 @@ public class Frontpage extends ActionBarActivity {
             public void onResponse(JSONObject response) {
               threads=  parseData(response);
               mAdaptor.setData(threads);
+              swipeRefreshLayout.setRefreshing(false);
             }
         },new Response.ErrorListener(){
             @Override
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(Frontpage.this, "RESPONSE" + error, Toast.LENGTH_LONG).show();
                 Log.d("Error Volley", error.toString());
+                swipeRefreshLayout.setRefreshing(false);
             }
         });
         requestQueue.add(request);

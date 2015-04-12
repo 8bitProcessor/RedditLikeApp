@@ -4,6 +4,7 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -40,6 +41,7 @@ public class Comments extends ActionBarActivity{
     private static String submit_comment_url = "http://ec2-52-16-75-101.eu-west-1.compute.amazonaws.com/QueryFiles/submit_comment.php";
     private static String commentsURL = "http://ec2-52-16-75-101.eu-west-1.compute.amazonaws.com/QueryFiles/comments.php";
     private RecyclerView.LayoutManager commentsLayoutMgr;
+    private SwipeRefreshLayout swipeRefreshLayout;
     private ArrayList<CommentClass> comments = new ArrayList<CommentClass>();
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,7 +60,7 @@ public class Comments extends ActionBarActivity{
         username_comments.setText(extras.getString("username"));
         title_comments.setText(extras.getString("title"));
         infoOrL.setText(extras.getString("infoOrL"));
-        String threadID  = extras.getString("threadID");
+        final String threadID  = extras.getString("threadID");
         try {
             getComments(threadID);
         } catch (JSONException e) {
@@ -89,6 +91,21 @@ public class Comments extends ActionBarActivity{
         commentsRecyclerView.setLayoutManager(commentsLayoutMgr);
         commentAdaptor= new CommentsAdaptor(this);
         commentsRecyclerView.setAdapter(commentAdaptor);
+
+        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.refreshComments);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener(){
+            @Override
+            public void onRefresh() {
+                swipeRefreshLayout.setRefreshing(true);
+                try {
+                    getComments(threadID);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -142,6 +159,7 @@ public class Comments extends ActionBarActivity{
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(Comments.this, "RESPONSE" + error, Toast.LENGTH_LONG).show();
                 Log.d("Error Volley", error.toString());
+                swipeRefreshLayout.setRefreshing(false);
             }
         });
         requestQueue.add(request);
@@ -158,6 +176,7 @@ public class Comments extends ActionBarActivity{
             public void onResponse(JSONObject response) {
                 comments=  parseComments(response);
                 commentAdaptor.setCommentData(comments);
+                swipeRefreshLayout.setRefreshing(false);
             }
         },new Response.ErrorListener(){
             @Override

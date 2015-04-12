@@ -41,13 +41,16 @@ public class SubmitThread extends Fragment {
         submit = (Button) submit_thread.findViewById(R.id.submit);
         submit.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
+                String post_title = title.getText().toString();
+                String post_category = category.getSelectedItem().toString();
+                String post_option = link_option.getSelectedItem().toString();
+                String post_info = topic_link.getText().toString();
                 if(pm.getUsername(getActivity())=="") {
                        Toast.makeText(getActivity(), "Please login to post", Toast.LENGTH_LONG).show();
-                }else {
-                    String post_title = title.getText().toString();
-                    String post_category = category.getSelectedItem().toString();
-                    String post_option = link_option.getSelectedItem().toString();
-                    String post_info = topic_link.getText().toString();
+                }else if(post_title.length()==0 || post_info.length()==0) {
+                    Toast.makeText(getActivity(), "Please make sure you add both a title and link/topic", Toast.LENGTH_LONG).show();
+                }
+                else{
                     try {
                         postThread(post_url, post_title, post_category, post_option, post_info);
                     } catch (JSONException e) {
@@ -56,7 +59,6 @@ public class SubmitThread extends Fragment {
                 }
            }
         });
-
         back = (Button) submit_thread.findViewById(R.id.back);
         back.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
@@ -64,7 +66,6 @@ public class SubmitThread extends Fragment {
                 startActivity(i);
             }
         });
-
         return submit_thread;
     }
     @Override
@@ -96,7 +97,6 @@ public class SubmitThread extends Fragment {
         postDetails.put("category", post_category);
         postDetails.put("type", post_option);
         postDetails.put("info", post_info);
-
         JsonObjectRequest postRequest = new JsonObjectRequest(Request.Method.POST, url,postDetails, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {

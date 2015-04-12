@@ -3,7 +3,6 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -17,7 +16,6 @@
         android:layout_alignStart="@+id/password"
         android:layout_alignRight="@+id/password"
         android:layout_alignEnd="@+id/password" />
-
     <EditText
         android:layout_width="173dp"
         android:layout_height="wrap_content"
@@ -37,7 +35,6 @@
         android:id="@+id/login"
         android:layout_above="@+id/create_account"
         android:layout_centerHorizontal="true" />
-
     <Button
         style="?android:attr/buttonStyleSmall"
         android:layout_width="150dp"
@@ -47,7 +44,6 @@
         android:layout_above="@+id/defaultCategory"
         android:layout_alignLeft="@+id/login"
         android:layout_alignStart="@+id/login" />
-
     <Button
         style="?android:attr/buttonStyleSmall"
         android:layout_width="150dp"
@@ -58,6 +54,4 @@
         android:layout_alignLeft="@+id/create_account"
         android:layout_alignStart="@+id/create_account"
         android:layout_marginBottom="190dp" />
-
-
 </RelativeLayout>

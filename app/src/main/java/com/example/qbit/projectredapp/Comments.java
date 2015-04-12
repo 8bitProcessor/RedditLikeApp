@@ -104,8 +104,6 @@ public class Comments extends ActionBarActivity{
                 }
             }
         });
-
-
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -164,9 +162,6 @@ public class Comments extends ActionBarActivity{
         });
         requestQueue.add(request);
     }
-
-
-
     public void getComments(String threadID) throws JSONException {
         JSONObject ID = new JSONObject();
         ID.put("threadID",threadID);

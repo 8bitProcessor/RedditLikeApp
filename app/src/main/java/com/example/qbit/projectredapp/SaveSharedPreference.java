@@ -23,11 +23,9 @@ public class SaveSharedPreference {
     public static String getPassword(Context ctx){
         return getSharedPreferences(ctx).getString(password, "");
     }
-
     public static void logout(Context ctx){
         SharedPreferences.Editor editor= getSharedPreferences(ctx).edit();
         editor.clear();
         editor.commit();
-
     }
 }

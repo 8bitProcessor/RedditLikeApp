@@ -47,7 +47,6 @@ public class CommentsAdaptor extends RecyclerView.Adapter<CommentsAdaptor.Commen
     public void setCommentData(ArrayList<CommentClass> netComments){
         this.comments=netComments;
         notifyItemRangeChanged(0,netComments.size());
-
     }
     @Override
     public CommentsViewHolder onCreateViewHolder(ViewGroup parent,int viewType) {
@@ -61,7 +60,6 @@ public class CommentsAdaptor extends RecyclerView.Adapter<CommentsAdaptor.Commen
             holder.username_comment.setText(current.getUsername());
             holder.score.setText(current.getScore());
             holder.comment_rec.setText(current.getComment());
-
         holder.upvote.setOnClickListener(   new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -69,7 +67,6 @@ public class CommentsAdaptor extends RecyclerView.Adapter<CommentsAdaptor.Commen
                 if(pm.getUsername(context)==""){
                     Toast.makeText(context, "Please login to vote!", Toast.LENGTH_LONG).show();
                 }else{
-
                     try {
                         voteComment(current.getCommentID(), voteType);
                     } catch (JSONException e) {
@@ -99,7 +96,6 @@ public class CommentsAdaptor extends RecyclerView.Adapter<CommentsAdaptor.Commen
     public int getItemCount() {
         return comments.size();
     }
-
 public void voteComment(String comment_id, int vote_type) throws JSONException {
         Log.d("commentID : ", comment_id);
         JSONObject voteComment = new JSONObject();
@@ -127,5 +123,4 @@ public void voteComment(String comment_id, int vote_type) throws JSONException {
         };
         requestQueue.add(send_vote);
     }
-
 }

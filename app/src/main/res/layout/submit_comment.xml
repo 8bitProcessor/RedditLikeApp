@@ -16,7 +16,6 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Your Comment"
         android:layout_gravity="center_horizontal" />
-
     <EditText
         android:layout_margin="10dp"
         android:layout_width="match_parent"
@@ -34,6 +33,5 @@
         android:text="Back"
         android:id="@+id/back_to_comments"
         android:layout_gravity="center_horizontal" />
-
     </LinearLayout>
 </LinearLayout>

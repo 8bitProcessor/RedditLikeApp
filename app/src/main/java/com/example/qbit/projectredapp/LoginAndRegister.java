@@ -35,10 +35,6 @@ public class LoginAndRegister extends Activity {
             startActivity(intent);
             Toast.makeText(getApplicationContext(), "Logging you back in !", Toast.LENGTH_LONG);
         }
-
-
-
-
         setContentView(R.layout.login_page);
         Button login = (Button) findViewById(R.id.login);
         user = (EditText)findViewById(R.id.username);
@@ -76,11 +72,6 @@ public class LoginAndRegister extends Activity {
                 startActivityForResult(intent, 0);
             }
         });
-
-
-
-
-
     }
 private void loginAction(String url, final String user, final String passwd) throws JSONException {
         RequestQueue requestQueue =VolleySingleton.getInstance().getRequestQueue();
@@ -148,5 +139,4 @@ private void createAccountAction(String url, final String user, final String pas
     };
     requestQueue.add(request);
     }
-
 }

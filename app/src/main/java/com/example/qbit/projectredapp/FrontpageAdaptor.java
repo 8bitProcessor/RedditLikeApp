@@ -35,7 +35,6 @@ public class FrontpageAdaptor extends RecyclerView.Adapter<FrontpageAdaptor.MyVi
         public ImageButton downvote;
         public ImageButton open;
         public ImageButton comments;
-
         public MyViewHolder(View v) {
             super(v);
             title = (TextView) v.findViewById(R.id.title);
@@ -48,7 +47,6 @@ public class FrontpageAdaptor extends RecyclerView.Adapter<FrontpageAdaptor.MyVi
             comments =(ImageButton) v.findViewById(R.id.comments);
         }
     }
-
     public FrontpageAdaptor(Context context){
         this.context=context;
         inflater = LayoutInflater.from(context);
@@ -66,8 +64,6 @@ public class FrontpageAdaptor extends RecyclerView.Adapter<FrontpageAdaptor.MyVi
     @Override
     public void onBindViewHolder(MyViewHolder holder, final int position) {
         final ThreadClass current=threads.get(position);
-        // - get element from your dataset at this position
-        // - replace the contents of the view with that element
         holder.title.setText(current.getTitle());
         holder.username.setText(current.getUsername());
         holder.score.setText(current.getScore());

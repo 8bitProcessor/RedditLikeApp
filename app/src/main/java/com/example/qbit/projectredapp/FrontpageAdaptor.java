@@ -96,21 +96,32 @@ public class FrontpageAdaptor extends RecyclerView.Adapter<FrontpageAdaptor.MyVi
             @Override
             public void onClick(View v) {
                 int voteType=1;
-                try {
-                    voteThread(current.getThreadID(), voteType);
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                if(pm.getUsername(context)==""){
+                    Toast.makeText(context, "Please login to vote", Toast.LENGTH_LONG).show();
                 }
+                else{
+                    try {
+                        voteThread(current.getThreadID(), voteType);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
             }
         });
         holder.downvote.setOnClickListener(new View.OnClickListener(){
            @Override
             public void onClick(View v){
                int voteType=0;
-               try {
-                   voteThread(current.getThreadID(),voteType);
-               } catch (JSONException e) {
-                   e.printStackTrace();
+               if (pm.getUsername(context)==""){
+                   Toast.makeText(context, "Please login to vote", Toast.LENGTH_LONG).show();
+               }
+               else {
+                   try {
+                       voteThread(current.getThreadID(),voteType);
+                   } catch (JSONException e) {
+                       e.printStackTrace();
+                   }
                }
            }
         });

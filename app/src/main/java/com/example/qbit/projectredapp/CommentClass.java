@@ -21,7 +21,7 @@ public class CommentClass {
     public void setUsername(String Username){ this.username=Username;}
     public void setScore(String Score){this.score=Score;}
     public void setComment(String Comment){this.comment=Comment;}
-    public void setCommentID(String CommentID){this.commentID=commentID;}
+    public void setCommentID(String CommentID){this.commentID=CommentID;}
 }
 
 

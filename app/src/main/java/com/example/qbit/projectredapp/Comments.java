@@ -68,17 +68,20 @@ public class Comments extends ActionBarActivity{
             final String threadID = extras.getString("threadID");
             @Override
             public void onClick(View v) {
+                String comment_text = comment_details.getText().toString();
                 if (pm.getUsername(getApplicationContext())==""){
                     Toast.makeText(getApplicationContext(), "Please login to comment.", Toast.LENGTH_LONG).show();
                 }
-                else{
-                String comment_text = comment_details.getText().toString();
-                try {
-                    postComment(comment_text, threadID);
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                else if(!comment_text.isEmpty()){
+                    try {
+                        postComment(comment_text, threadID);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
-            }
+                else {
+                    Toast.makeText(getApplicationContext(), "Please make sure you enter text", Toast.LENGTH_LONG).show();
+                }
             }
         });
         commentsRecyclerView = (RecyclerView) findViewById(R.id.comments_rec_view);
@@ -149,7 +152,6 @@ public class Comments extends ActionBarActivity{
     public void getComments(String threadID) throws JSONException {
         JSONObject ID = new JSONObject();
         ID.put("threadID",threadID);
-
         RequestQueue requestQueue =VolleySingleton.getInstance().getRequestQueue();
         JsonObjectRequest request=new JsonObjectRequest(Request.Method.POST,commentsURL,ID,new Response.Listener<JSONObject>(){
             @Override
